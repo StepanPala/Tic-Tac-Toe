@@ -5,13 +5,21 @@ author: Štěpán Pala
 e-mail: Palast@seznam.cz
 """
 
-# Imports functions from functions.py
 from board import empty_board, print_board
 from players import choose_opponent, ai_player, player_move, mark_choice
 from helper import game_over, score, play_again, double_separator
 
 def play_game():
-    """This is the main function that takes care of the gameplay."""
+    """
+    This function serves as the main loop of the game, managing gameplay until the user decides to stop it.
+    
+    The function calls other functions to:
+        Manage the game board,
+        Choose opponent (human or AI),
+        Handle player moves,
+        Check for win or draw,
+        Record score
+    """
 
     # Win counter
     win_x = 0
@@ -95,9 +103,6 @@ print(
     f"Let's start the game\n"
     f"{'-' * 42}"
     )
-
-# Main game
-play_game()
 
 if __name__ == "__main__":
     play_game()

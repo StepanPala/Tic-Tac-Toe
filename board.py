@@ -1,8 +1,8 @@
-"""This module contains functions managing the game board."""
+"""This module contains functions for creating and managing the game board for Tic-Tac-Toe."""
 
 def print_board(board):
     """
-    Creates empty 3x3 game board.
+    Prints the current game board.
     
     Args:
         board: 2D list representing the game board."""
@@ -12,9 +12,9 @@ def print_board(board):
         print("+---+---+---+")
 
 def empty_board() -> list[list[str]]:
-    """Sets the board for game.
+    """Creates and returns an empty 3x3 game board.
 
     Returns:
-        New game board ready for the game.
+        2D list with an empty game board with each element being an empty string (" ").
     """
     return [[" " for _ in range (3)] for _ in range(3)]

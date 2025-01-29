@@ -3,7 +3,7 @@
 import random
 
 def ai_player(board):
-    """Defines a simple AI player using random library."""
+    """Determines the next move of the AI player using a simple random method."""
     available_moves = []
     for row in range(3):
         for col in range(3):
