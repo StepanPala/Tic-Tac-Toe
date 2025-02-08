@@ -6,13 +6,14 @@ e-mail: Palast@seznam.cz
 """
 
 from board import empty_board, print_board
-from players import choose_opponent, ai_player, player_move, mark_choice
-from helper import game_over, score, play_again, double_separator
+from players import choose_opponent, handle_ai_move, handle_human_move
+from helper import handle_win, handle_draw, game_over, play_again, DOUBLE_SEPARATOR, DASH_SEPARATOR
 
 def play_game():
     """
-    This function serves as the main loop of the game, managing gameplay until the user decides to stop it.
-    
+    This function serves as the main loop of the game,
+    managing gameplay until the user decides to stop it.
+
     The function calls other functions to:
         Manage the game board,
         Choose opponent (human or AI),
@@ -22,8 +23,7 @@ def play_game():
     """
 
     # Win counter
-    win_x = 0
-    win_o = 0
+    win_x, win_o = 0, 0
 
     chosen_opponent = None
 
@@ -31,7 +31,7 @@ def play_game():
     while True:
 
         # Chooses either human or AI opponent and remembers the choice for further games
-        if chosen_opponent == None:
+        if chosen_opponent is None:
             opponent = choose_opponent()
             chosen_opponent = opponent
         else:
@@ -44,65 +44,55 @@ def play_game():
         # Game progress – one game
         while True:
             print_board(board)
-            print(double_separator())
+            print(DOUBLE_SEPARATOR)
 
             # AI opponent
             if opponent == "A" and player == "O":
-                print("AI's move")
-                row, col = ai_player(board)
-                mark_choice(board, player, row, col)
-                print(double_separator())
+                handle_ai_move(board, player)
 
             # Human player
             else:
-                row, col = player_move(board, player)
-                mark_choice(board, player, row, col)
-                print(double_separator())
+                handle_human_move(board, player)
 
             # Checks if the player won
             result = game_over(board, player)
             if result == "win":
-                print_board(board)
-                print(double_separator())
-                print(f"Congratulations, Player {player} WON!")
-                win_x, win_o = score(player, win_x, win_o)
+                win_x, win_o = handle_win(board, player, win_x, win_o)
                 break
 
             # Checks if there is a draw
-            elif result == "draw":
-                print_board(board)
-                print(double_separator())
-                print("It's a tie!")
+            if result == "draw":
+                handle_draw(board)
                 break # Jumps to play_again
 
             # Switches the player
             player = "O" if player == "X" else "X"
 
         # Prints the current score
-        print(double_separator())
+        print(DOUBLE_SEPARATOR)
         print(f"Player X wins: {win_x} | Player O wins: {win_o}")
-        print(double_separator())
+        print(DOUBLE_SEPARATOR)
 
         # Asks if the players want another game
         if not play_again():
             break
 
 # Introduction and game rules
-print(
-    f"Welcome to Tic Tac Toe\n"
-    f"{double_separator()}\n"
-    f"GAME RULES:\n"
-    f"Each player can place one mark (or stone)\n"
-    f"per turn on the 3x3 grid. The WINNER is\n"
-    f"who succeeds in placing three of their\n"
-    f"marks in a:\n"
-    f"* horizontal,\n"
-    f"* vertical or\n"
-    f"* diagonal row\n"
-    f"{double_separator()}\n"
-    f"Let's start the game\n"
-    f"{'-' * 42}"
-    )
+print(f"""
+Welcome to Tic Tac Toe
+{DOUBLE_SEPARATOR}
+GAME RULES:
+Each player can place one mark (or stone)
+per turn on the 3x3 grid. The WINNER is
+who succeeds in placing three of their
+marks in a:
+* horizontal,
+* vertical or
+* diagonal row
+{DOUBLE_SEPARATOR}
+Let's start the game
+{DASH_SEPARATOR}"""
+)
 
 if __name__ == "__main__":
     play_game()
