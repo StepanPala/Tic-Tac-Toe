@@ -1,6 +1,11 @@
-"""This module contains miscellaneous functions for smooth gameplay."""
+"""
+This module contains miscellaneous functions for smooth gameplay.
+It includes functions for checking win conditions, handling game over scenarios,
+and managing player scores.
+"""
 
 from board import print_board
+
 
 def check_win(board: list, player: str) -> bool:
     """Checks if any of the players won."""
@@ -12,6 +17,7 @@ def check_win(board: list, player: str) -> bool:
        all(board[i][2 - i] == player for i in range(3)):
         return True
     return False
+
 
 def game_over(board: list, player: str) -> str:
     """
@@ -28,7 +34,10 @@ def game_over(board: list, player: str) -> str:
         return "draw"
     return "continue"
 
-def handle_win(board: list, player: str, win_x: int, win_o: int) -> tuple[int, int]:
+
+def handle_win(
+        board: list, player: str, win_x: int, win_o: int
+    ) -> tuple[int, int]:
     """Handles win scenario."""
     print_board(board)
     print(DOUBLE_SEPARATOR)
@@ -36,11 +45,13 @@ def handle_win(board: list, player: str, win_x: int, win_o: int) -> tuple[int, i
     win_x, win_o = score(player, win_x, win_o)
     return win_x, win_o
 
+
 def handle_draw(board: list):
     """Handles draw scenario."""
     print_board(board)
     print(DOUBLE_SEPARATOR)
     print("It's a tie!")
+
 
 def score(player: str, win_x: int, win_o: int) -> tuple[int, int]:
     """
@@ -60,6 +71,7 @@ def score(player: str, win_x: int, win_o: int) -> tuple[int, int]:
         win_o += 1
     return win_x, win_o
 
+
 def play_again() -> bool:
     """Asks if the players want another game."""
     while True:
@@ -69,6 +81,7 @@ def play_again() -> bool:
         if again == "no":
             return False
         print("Please enter \"yes\" or \"no\".")
+
 
 # Separators
 DOUBLE_SEPARATOR = '=' * 42

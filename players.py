@@ -1,10 +1,18 @@
-"""This module contains functions relating to players and their moves."""
+"""
+This module contains functions relating to players and their moves.
+It includes functions for handling player input, validating moves,
+marking choices on the board, and managing AI moves.
+"""
 
 import random
+
 from helper import DOUBLE_SEPARATOR
 
+
 def ai_player(board: list) -> tuple[int, int]:
-    """Determines the next move of the AI player using a simple random method."""
+    """
+    Determines the next move of the AI player using a simple random method.
+    """
     available_moves = []
     for row in range(3):
         for col in range(3):
@@ -13,6 +21,7 @@ def ai_player(board: list) -> tuple[int, int]:
     if not available_moves:
         return None
     return random.choice(available_moves)
+
 
 def choose_opponent() -> str:
     """
@@ -23,11 +32,13 @@ def choose_opponent() -> str:
     """
     while True:
         opponent = input(
-            "Would you like to play against another\nplayer (P) or against AI (A)?: "
-            ).upper()
+            "Would you like to play against another "
+            "player (P) or against AI (A)?: "
+        ).upper()
         if opponent in ("P", "A"):
             return opponent
         print("Please enter \"P\" or \"A\".")
+
 
 def handle_ai_move(board: list, player: str):
     """Handles AI move."""
@@ -35,6 +46,7 @@ def handle_ai_move(board: list, player: str):
     row, col = ai_player(board)
     mark_choice(board, player, row, col)
     print(DOUBLE_SEPARATOR)
+
 
 def player_input(board: list, player: str) -> int:
     """
@@ -50,7 +62,9 @@ def player_input(board: list, player: str) -> int:
     while True:
         try:
             # Checks if it is a number
-            choice = int(input(f"Player {player}, please enter your move (1-9): "))
+            choice = int(
+                input(f"Player {player}, please enter your move (1-9): ")
+            )
             if 1 <= choice <= 9:
                 row, col = (choice - 1) // 3, (choice - 1) % 3
                 is_valid = valid_move(board, row, col)
@@ -62,11 +76,13 @@ def player_input(board: list, player: str) -> int:
         except ValueError:
             print("Please enter a number.")
 
+
 def handle_human_move(board: list, player: str):
     """Handles human move."""
     row, col = player_move(board, player)
     mark_choice(board, player, row, col)
     print(DOUBLE_SEPARATOR)
+
 
 def valid_move(board, row, col) -> bool:
     """Checks if the move can be made."""
@@ -74,9 +90,11 @@ def valid_move(board, row, col) -> bool:
         return False
     return True
 
+
 def mark_choice(board: list, player: str, row: int, col: int):
     """Marks the player's choice on the board."""
     board[row][col] = player
+
 
 def player_move(board: list, player: str) -> tuple[int, int]:
     """Returns valid coordinates."""

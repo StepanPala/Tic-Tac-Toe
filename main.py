@@ -6,8 +6,10 @@ e-mail: Palast@seznam.cz
 """
 
 from board import empty_board, print_board
+from helper import (DASH_SEPARATOR, DOUBLE_SEPARATOR, game_over, handle_draw,
+                    handle_win, play_again)
 from players import choose_opponent, handle_ai_move, handle_human_move
-from helper import handle_win, handle_draw, game_over, play_again, DOUBLE_SEPARATOR, DASH_SEPARATOR
+
 
 def play_game():
     """
@@ -22,6 +24,7 @@ def play_game():
         Record score
     """
 
+
     # Win counter
     win_x, win_o = 0, 0
 
@@ -30,7 +33,8 @@ def play_game():
     # Gameplay loop
     while True:
 
-        # Chooses either human or AI opponent and remembers the choice for further games
+        # Chooses either human or AI opponent and remembers the choice
+        # for further games
         if chosen_opponent is None:
             opponent = choose_opponent()
             chosen_opponent = opponent
@@ -93,6 +97,7 @@ marks in a:
 Let's start the game
 {DASH_SEPARATOR}"""
 )
+
 
 if __name__ == "__main__":
     play_game()
