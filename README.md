@@ -85,7 +85,7 @@ AI's move
 Štěpán Pala
 
 
-# Text Analyser
+# Tic-Tac-Toe
 
 A simple implementation of the classic game Tic-Tac-Toe in Python
 
